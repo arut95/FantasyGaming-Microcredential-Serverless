@@ -55,8 +55,8 @@ public class VotingHandler implements RequestHandler<APIGatewayProxyRequestEvent
         * }
      */
     private static APIGatewayProxyResponseEvent voteForPlayer(APIGatewayProxyResponseEvent response, JsonNode jsonNode,
-                                                              String username)
-            throws JsonProcessingException {
+                                                              String username) throws JsonProcessingException {
+        // Validate request body
         JsonNode playerIdNode = jsonNode.get("playerId");
         if (playerIdNode == null || !playerIdNode.isInt()) {
             response.setStatusCode(400);
@@ -64,8 +64,10 @@ public class VotingHandler implements RequestHandler<APIGatewayProxyRequestEvent
             return response;
         }
 
+        // Cast vote
         Voting.castVote(playerIdNode.intValue(), username);
 
+        // Return updated votes
         String result = objectMapper.writeValueAsString(Voting.getVoteResults());
         response.setStatusCode(200);
         response.setBody("Updated votes: " + result);

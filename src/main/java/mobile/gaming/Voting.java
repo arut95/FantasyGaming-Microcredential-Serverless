@@ -53,14 +53,5 @@ public class Voting {
         return voteStateMap;
     }
 
-    // Just for testing
-    public static void main(String[] args) {
-        int playerId = 1;
-        PlayerVoteState playerVoteState = castVote(playerId, "user");
-
-        System.out.println(playerVoteState.getName() + " has " + playerVoteState.getTotalVotes() + " votes.");
-        System.out.println("The unique users who voted for " + playerVoteState.getName() + " are: " + playerVoteState.getUniqueUsers());
-    }
-
 }
 
